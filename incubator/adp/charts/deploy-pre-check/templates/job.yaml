@@ -22,6 +22,10 @@ spec:
       name: {{ include "pre-install-check.fullname" . }}
       labels:
         {{- include "pre-install-check.selectorLabels" . | nindent 8 }}
+      annotations:
+        eks.tke.cloud.tencent.com/reserve-sandbox-duration: "30m"
+        eks.tke.cloud.tencent.com/reserve-succeeded-sandbox: "true"
+        eks.tke.cloud.tencent.com/reserve-failed-sandbox: "true"
     spec:
       restartPolicy: Never
       {{- if .Values.rbac.create }}
@@ -97,4 +101,4 @@ spec:
         - name: REQUIRED_MEMORY
           value: {{ if eq .Values.global.clusterSize "minimal" }}{{ .Values.requirements.minimal.memory | quote }}{{ else if eq .Values.global.clusterSize "standard" }}{{ .Values.requirements.standard.memory | quote }}{{ else if eq .Values.global.clusterSize "recommended" }}{{ .Values.requirements.recommended.memory | quote }}{{ else }}{{ .Values.requirements.standard.memory | quote }}{{ end }}
         - name: CHECK_K8S_RESOURCES
-          value: {{ .Values.global.checkK8sResources | default true | quote }}
+          value: {{ .Values.global.checkK8sResources | quote }}
