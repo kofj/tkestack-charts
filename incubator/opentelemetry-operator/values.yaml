@@ -29,7 +29,7 @@ pdb:
 manager:
   image:
     repository: ccr.ccs.tencentyun.com/tke-market/opentelemetry-operator
-    tag: v0.92.0
+    tag: v0.92.1
   collectorImage:
     repository: ccr.ccs.tencentyun.com/tke-market/opentelemetry-collector-contrib
     tag: 0.85.0
@@ -263,6 +263,11 @@ tolerations: []
 nodeSelector: {}
 topologySpreadConstraints: []
 hostNetwork: false
+
+## Cluster network mode configuration
+## Optional value: "" (default, auto-detect), "cilium-overlay" (force enable)
+## In general, leaving the default values unchanged is sufficient.
+networkMode: ""
 
 # Allows for pod scheduler prioritisation
 priorityClassName: ""
